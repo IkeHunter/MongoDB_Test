@@ -11,9 +11,8 @@ const todos = [{
 }, {
   _id: new ObjectID(),
   text: 'Second test todo'
-}]
+}];
 
-//starts with 0 todos
 beforeEach((done) => {
   Todo.remove({}).then(() => {
     return Todo.insertMany(todos);
@@ -32,7 +31,7 @@ describe('POST /todos', () => {
         expect(res.body.text).toBe(text);
       })
       .end((err, res) => {
-        if(err) {
+        if (err) {
           return done(err);
         }
 
@@ -44,7 +43,7 @@ describe('POST /todos', () => {
       });
   });
 
-  it('should not create todo with invalis body data', (done) => {
+  it('should not create todo with invalid body data', (done) => {
     request(app)
       .post('/todos')
       .send({})
@@ -53,7 +52,6 @@ describe('POST /todos', () => {
         if (err) {
           return done(err);
         }
-
 
         Todo.find().then((todos) => {
           expect(todos.length).toBe(2);
@@ -75,8 +73,6 @@ describe('GET /todos', () => {
   });
 });
 
-// toHexString() turns the value into a string
-
 describe('GET /todos/:id', () => {
   it('should return todo doc', (done) => {
     request(app)
@@ -95,13 +91,12 @@ describe('GET /todos/:id', () => {
       .get(`/todos/${hexId}`)
       .expect(404)
       .end(done);
-  })
+  });
 
   it('should return 404 for non-object ids', (done) => {
     request(app)
-    .get('/todos/123abc')
-    .expect(404)
-    .end(done);
-  })
-
+      .get('/todos/123abc')
+      .expect(404)
+      .end(done);
+  });
 });
