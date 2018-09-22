@@ -48,7 +48,8 @@ app.get('/todos/:id', (req, res) => {
     return res.status(404).send('No todos found');
     }
 
-    res.send({todo});
+    // res.send({todo});
+    res.render('html.hbs', {todo});
     //uses {} because it sends it as object, later i cound add more things
 
   }).catch((e) => {
